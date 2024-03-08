@@ -5,9 +5,10 @@ public class TopoSort {
     {
         //System.out.println("Hello world!");
         int[][]dag = readFile(args[0]);
+        //TODO find magic 0
         for(int i =0; i<dag.length; i++){
             for(int j =0; j < dag[0].length; j++){
-                System.out.println(dag[i][j] + " " + i);
+                System.out.println(i + " " +  dag[i][j]);
             }
         }
     }
@@ -38,13 +39,10 @@ public class TopoSort {
                     if(parentNode.length >= 2){
                         String[] childNodes = parentNode[1].split(",");
                         //System.out.println(parentNode[0] + " " + childNodes[0]);
-
-                        for(int i = 0; i< childNodes.length; i++)
-                        {
+                        for(int i = 0; i< childNodes.length; i++) {
                             dag[dagx][i] = Integer.parseInt(childNodes[i]);
                         }
-                    }else
-                    {
+                    }else {
                         //if it does not have children it gets -1
                         dag[dagx][0] = -1;
                     }
