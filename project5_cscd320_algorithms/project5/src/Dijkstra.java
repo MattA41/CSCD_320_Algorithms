@@ -5,6 +5,7 @@ public class Dijkstra {
 
         //System.out.println("Hello world!");
         int[][]dag = readFile(args[0]);
+        dijkstra(dag, Integer.parseInt(args[1]));
         //test to see if graph was made correctly
         /*for(int i = 0; i < dag.length; i++){
             for(int j = 0; j < dag[i].length; j++){
@@ -69,5 +70,68 @@ public class Dijkstra {
         }
 
         return dag;
+    }
+    public static void dijkstra(int[][] graph, int start){
+        int vertices = graph.length;
+        boolean[] visited = new boolean[vertices];
+        int[] distance = new int[vertices];
+        int[]prev = new int[vertices];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        Arrays.fill(prev, -1);
+        distance[start] = 0;
+
+        for(int i = 0; i < vertices -1; i++){
+            int minVertex = findMinVertex(distance, visited);
+            visited[minVertex] = true;
+            for(int j = 0; j < vertices; j++){
+                if(!visited[j] && graph[minVertex][j] != -1 && distance[minVertex] != Integer.MAX_VALUE){
+                    int newDistance =distance[minVertex] + graph[minVertex][j];
+                    if (newDistance < distance[j]){
+                        distance[j] = newDistance;
+                        prev[j] = minVertex;
+                    }
+                }
+            }
+        }
+        printSolution(distance, prev, start);
+    }
+    public static int findMinVertex(int[] distance, boolean[] visited){
+        int minVertex = -1;
+        for(int i = 0; i < distance.length; i++ ){
+            if (!visited[i] && (minVertex == -1 || distance[i] < distance[minVertex])){
+                minVertex = i;
+            }
+        }
+        return minVertex;
+    }
+    public static void printSolution(int[] distance, int[] prev, int start){
+        for(int i = 0; i < distance.length; i++){
+            if(distance[i] == Integer.MAX_VALUE){
+                System.out.println("[" + i +"]unreachable");;
+            }else if (i != start){
+                List<Integer> path = new ArrayList<>();
+                getPath(prev, i, path);
+                System.out.print("[" + i + "]shortest path: ");
+                if(path.size() == 0){
+                    System.out.print("unreachable");
+                }else{
+                    System.out.print("(" + start);
+                    for(int j = 0; j < path.size(); j++){
+                        System.out.print("," + path.get(j));
+                    }
+                    System.out.print(")");
+
+                }
+                System.out.println(" shortest distance:" + distance[i]);
+
+            }
+        }
+    }
+    public static void getPath(int[] prev, int vertex, List<Integer> path){
+        if(vertex == -1){
+            return;
+        }
+        getPath(prev, prev[vertex], path);
+        path.add(vertex);
     }
 }

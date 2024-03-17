@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="run main" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="Dijkstra" />
+    <module name="project5" />
+    <option name="PROGRAM_PARAMETERS" value="graph.txt 3" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
