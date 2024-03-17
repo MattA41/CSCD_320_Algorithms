@@ -116,7 +116,7 @@ public class Dijkstra {
                     System.out.print("unreachable");
                 }else{
                     System.out.print("(" + start);
-                    for(int j = 0; j < path.size(); j++){
+                    for(int j = 1; j < path.size(); j++){
                         System.out.print("," + path.get(j));
                     }
                     System.out.print(")");
